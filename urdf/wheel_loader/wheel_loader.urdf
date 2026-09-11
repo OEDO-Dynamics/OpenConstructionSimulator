@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<robot name="wheel_loader">
+  <link name="world">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="attitude_yaw_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="attitude_pitch_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <joint name="attitude_yaw" type="revolute">
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="attitude_yaw_link"/>
+    <axis xyz="0.000000 0.000000 1.000000"/>
+    <limit lower="-3.141592653589793" upper="3.141592653589793" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="attitude_pitch" type="revolute">
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0 0 0"/>
+    <parent link="attitude_yaw_link"/>
+    <child link="attitude_pitch_link"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="attitude_roll" type="revolute">
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0 0 0"/>
+    <parent link="attitude_pitch_link"/>
+    <child link="base_link"/>
+    <axis xyz="1.000000 0.000000 0.000000"/>
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <link name="base_link">
+    <inertial>
+      <mass value="8000.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="55266.667" ixy="0" ixz="0" iyy="70966.667" iyz="0" izz="82913.333"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/base_link_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/base_link_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="front_frame">
+    <inertial>
+      <mass value="4000.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="24973.333" ixy="0" ixz="0" iyy="23266.667" iyz="0" izz="27333.333"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/front_frame_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/front_frame_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="boom">
+    <inertial>
+      <mass value="1200.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1585.000" ixy="0" ixz="0" iyy="7178.000" iyz="0" izz="8185.000"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/boom_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/boom_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="bucket">
+    <inertial>
+      <mass value="900.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="5652.750" ixy="0" ixz="0" iyy="1839.000" iyz="0" izz="5547.750"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="bucket_link">
+    <inertial>
+      <mass value="300.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="926.500" ixy="0" ixz="0" iyy="848.500" iyz="0" izz="762.500"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_link_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_link_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="boom_cylinder">
+    <inertial>
+      <mass value="120.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="155.700" ixy="0" ixz="0" iyy="87.700" iyz="0" izz="236.200"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/boom_cylinder_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/boom_cylinder_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="boom_cylinder_rod">
+    <inertial>
+      <mass value="60.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="85.300" ixy="0" ixz="0" iyy="30.050" iyz="0" izz="112.850"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/boom_cylinder_rod_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/boom_cylinder_rod_visual.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="bucket_cylinder">
+    <inertial>
+      <mass value="120.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="163.600" ixy="0" ixz="0" iyy="133.200" iyz="0" izz="289.600"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_cylinder_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_cylinder_collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="bucket_cylinder_rod">
+    <inertial>
+      <mass value="60.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="144.800" ixy="0" ixz="0" iyy="82.450" iyz="0" izz="67.250"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_cylinder_rod_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/bucket_cylinder_rod_visual.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wheel_front_left">
+    <inertial>
+      <mass value="350.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="460.742" ixy="0" ixz="0" iyy="460.742" iyz="0" izz="790.234"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/wheel_front_left_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder radius="2.125" length="1.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wheel_front_right">
+    <inertial>
+      <mass value="350.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="460.742" ixy="0" ixz="0" iyy="460.742" iyz="0" izz="790.234"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/wheel_front_right_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder radius="2.125" length="1.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wheel_rear_left">
+    <inertial>
+      <mass value="350.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="460.742" ixy="0" ixz="0" iyy="460.742" iyz="0" izz="790.234"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/wheel_rear_left_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder radius="2.125" length="1.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wheel_rear_right">
+    <inertial>
+      <mass value="350.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="460.742" ixy="0" ixz="0" iyy="460.742" iyz="0" izz="790.234"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wheel_loader/meshes/wheel_rear_right_visual.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder radius="2.125" length="1.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="articulation" type="revolute">
+    <origin xyz="1.075000 -0.000000 0.000000" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_frame"/>
+    <axis xyz="0.000000 0.000000 1.000000"/>
+    <limit lower="-0.6981317007977318" upper="0.6981317007977318" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="boom_pivot" type="revolute">
+    <origin xyz="1.825028 0.000000 4.351088" rpy="0 0 0"/>
+    <parent link="front_frame"/>
+    <child link="boom"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit lower="-0.6" upper="0.9" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <link name="tiltrotator_mount">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <link name="tiltrotator_rotator">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <joint name="bucket_pivot" type="revolute">
+    <origin xyz="7.346935 -0.000001 -2.465976" rpy="0 0 0"/>
+    <parent link="boom"/>
+    <child link="tiltrotator_mount"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit lower="-1.2" upper="0.8" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="tiltrotator_tilt" type="revolute">
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0 0 0"/>
+    <parent link="tiltrotator_mount"/>
+    <child link="tiltrotator_rotator"/>
+    <axis xyz="1.000000 0.000000 0.000000"/>
+    <limit lower="-0.7853981633974483" upper="0.7853981633974483" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="tiltrotator_rotate" type="continuous">
+    <origin xyz="0.000000 0.000000 0.000000" rpy="0 0 0"/>
+    <parent link="tiltrotator_rotator"/>
+    <child link="bucket"/>
+    <axis xyz="0.000000 0.000000 1.000000"/>
+    <limit effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="bucket_link_pivot" type="revolute">
+    <origin xyz="4.195413 -0.000001 -1.469675" rpy="0 0 0"/>
+    <parent link="boom"/>
+    <child link="bucket_link"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit lower="-1.2" upper="1.2" effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="boom_cylinder_mount" type="fixed">
+    <origin xyz="1.650000 0.000000 3.225000" rpy="0 0 0"/>
+    <parent link="front_frame"/>
+    <child link="boom_cylinder"/>
+  </joint>
+  <joint name="boom_cylinder_rod_mount" type="fixed">
+    <origin xyz="3.706540 0.000000 -1.680762" rpy="0 0 0"/>
+    <parent link="boom"/>
+    <child link="boom_cylinder_rod"/>
+  </joint>
+  <joint name="bucket_cylinder_mount" type="fixed">
+    <origin xyz="-0.405028 0.000000 1.378912" rpy="0 0 0"/>
+    <parent link="boom"/>
+    <child link="bucket_cylinder"/>
+  </joint>
+  <joint name="bucket_cylinder_rod_mount" type="fixed">
+    <origin xyz="0.685263 0.000000 1.565581" rpy="0 0 0"/>
+    <parent link="bucket_link"/>
+    <child link="bucket_cylinder_rod"/>
+  </joint>
+  <joint name="wheel_front_left_axle" type="continuous">
+    <origin xyz="4.524298 2.939999 0.489833" rpy="0 0 0"/>
+    <parent link="front_frame"/>
+    <child link="wheel_front_left"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="wheel_front_right_axle" type="continuous">
+    <origin xyz="4.524298 -2.940000 0.489833" rpy="0 0 0"/>
+    <parent link="front_frame"/>
+    <child link="wheel_front_right"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="wheel_rear_left_axle" type="continuous">
+    <origin xyz="-3.650012 2.940000 0.489833" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="wheel_rear_left"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit effort="100000.0" velocity="2.0"/>
+  </joint>
+  <joint name="wheel_rear_right_axle" type="continuous">
+    <origin xyz="-3.650012 -2.940000 0.489833" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="wheel_rear_right"/>
+    <axis xyz="0.000000 1.000000 0.000000"/>
+    <limit effort="100000.0" velocity="2.0"/>
+  </joint>
+</robot>
